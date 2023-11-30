@@ -20,7 +20,6 @@ const ThemeSwitcher = () => {
       value={currentTheme}
       onChange={(e) => setCurrentTheme(e.target.value)}
     >
-      <option disabled>--- Select theme ---</option>
       {Object.keys(themes).map((theme) => (
         <option key={theme} value={theme}>
           {capitalize(theme)}
