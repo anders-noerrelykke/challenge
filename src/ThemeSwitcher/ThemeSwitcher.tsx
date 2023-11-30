@@ -1,0 +1,34 @@
+import { SyntheticEvent, useEffect, useState } from "react"
+import type { ChangeEvent } from "react"
+import { themes } from "./themes"
+import "./ThemeSwitcher.css"
+import { capitalize } from "../utils/utils"
+
+const ThemeSwitcher = () => {
+  const [currentTheme, setCurrentTheme] = useState<string>(
+    Object.keys(themes)[0]
+  )
+
+  useEffect(() => {
+    Object.entries(themes[currentTheme as keyof typeof themes]).map(
+      ([property, value]: [string, any]) =>
+        document.documentElement.style.setProperty(property, value)
+    )
+  }, [currentTheme])
+
+  return (
+    <select
+      className="theme_switcher"
+      value={currentTheme}
+      onChange={(e) => setCurrentTheme(e.target.value)}
+    >
+      {Object.keys(themes).map((theme) => (
+        <option key={theme} value={theme}>
+          {capitalize(theme)}
+        </option>
+      ))}
+    </select>
+  )
+}
+
+export default ThemeSwitcher

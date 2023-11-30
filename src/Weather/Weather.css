@@ -1,0 +1,34 @@
+.weather {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  /* justify-content: center; */
+  /* border: 1px solid black; */
+  margin: 5rem;
+  padding: 1rem 2rem;
+  border-radius: 2rem;
+  filter: drop-shadow(0 20px 10px var(--shadow-color));
+  background-color: var(--tile-color);
+}
+
+.title {
+  margin-bottom: 0;
+}
+
+label {
+  color: var(--secondary-text-color);
+}
+
+.temperature {
+  font-size: 2rem;
+}
+
+.icon {
+  filter: drop-shadow(0 0 5px var(--shadow-color));
+}
+
+@media screen and (max-width: 767px) {
+  .weather {
+    margin: 1rem;
+    grid-template-columns: 1fr;
+  }
+}

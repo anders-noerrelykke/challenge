@@ -1,10 +1,8 @@
 import { useQuery } from "react-query"
+import "./Weather.css"
 
-type Info = {
-  city: string
-  temp: number
+interface Info extends Location, WeatherType {
   icon: string
-  country: string
 }
 
 type Location = {
@@ -12,6 +10,7 @@ type Location = {
   lat: number
   lon: number
   country: string
+  state: string
 }
 
 type WeatherType = {
@@ -23,7 +22,11 @@ type WeatherType = {
 
 const Weather = ({ city }: { city?: string }) => {
   // Replacing useState state management and useRef loading tracker with useQuery
-  const { data, error, isLoading } = useQuery<Info, { message: string }>(
+  const {
+    data: info,
+    error,
+    isLoading,
+  } = useQuery<Info, { message: string }>(
     ["weather", city],
     async () => {
       const [location]: [Location] = await fetch(
@@ -38,10 +41,13 @@ const Weather = ({ city }: { city?: string }) => {
         `https://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lon}&units=metric&appid=4c4f0b1876954338598a7be96c66527b`
       ).then((res) => res.json())
       return {
-        city: location.name,
-        temp: weather.main.temp,
+        ...location,
+        ...weather,
+        // city: location.name,
+        // temp: weather.main.temp,
+        // state: location.state,
         icon: `https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`,
-        country: location.country,
+        // country: location.country,
       }
     },
     { enabled: !!city, retry: 1 }
@@ -49,19 +55,27 @@ const Weather = ({ city }: { city?: string }) => {
 
   return (
     <>
-      {isLoading && <>Loading weather data...</>}
-      <h1>
-        {data?.city} {data?.country && `(${data?.country})`}
-      </h1>
+      <div className="weather">
+        {isLoading && <>Loading weather data...</>}
+        <div>
+          <h1 className="title">
+            {info?.name} {info?.country && `(${info?.country})`}
+          </h1>
+          {info?.state && <label>{info?.state}</label>}
+        </div>
+        <div>
+          {info?.main.temp && (
+            <p className="temperature">
+              {info?.main.temp && ~~info?.main.temp}°
+            </p>
+          )}
+        </div>
+        <div>
+          {info?.icon && <img className="icon" src={info?.icon} alt="Icon" />}
+        </div>
 
-      {data && (
-        <>
-          <p>{data?.temp && ~~data?.temp} Celcius</p>
-          <img src={data?.icon} alt="Icon" />
-        </>
-      )}
-
-      {error && error.message}
+        {error && error.message}
+      </div>
     </>
   )
 }
