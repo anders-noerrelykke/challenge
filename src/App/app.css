@@ -10,6 +10,10 @@ button {
   padding: 0.2rem 0.5rem;
 }
 
+p {
+  margin: 0.5rem 0;
+}
+
 .controls_container {
   width: 100%;
   display: flex;

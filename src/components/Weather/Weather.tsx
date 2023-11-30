@@ -16,6 +16,9 @@ type Location = {
 type WeatherType = {
   main: {
     temp: number
+    temp_min: number
+    temp_max: number
+    feels_like: number
   }
   weather: [{ icon: string }]
 }
@@ -55,16 +58,33 @@ const Weather = ({ city }: { city?: string }) => {
         {isLoading && <>Loading weather data...</>}
         {error && error.message}
         <div>
-          <h1 className="title">
-            {info?.name} {info?.country && `(${info?.country})`}
-          </h1>
-          {info?.state && <label>{info?.state}</label>}
+          <h1 className="title">{info?.name}</h1>
+          <label>
+            {info?.state && info?.state}
+            {info?.country && <>- {info.country}</>}
+          </label>
         </div>
         <div>
           {info?.main.temp && (
             <p className="temperature">
               {info?.main.temp && ~~info?.main.temp}°
             </p>
+          )}
+          {info?.main.temp_min && info?.main.temp_max && (
+            <>
+              <hr />
+              <label>Ranges between:</label>
+              <p>
+                {~~info?.main.temp_min}° to {~~info?.main.temp_max}°
+              </p>
+            </>
+          )}
+          {info?.main.feels_like && (
+            <>
+              <hr />
+              <label>Feels like:</label>
+              <p>{~~info?.main.feels_like}°</p>
+            </>
           )}
         </div>
         <div>

@@ -1,10 +1,10 @@
 import React from "react"
 import type { ChangeEvent, FC } from "react"
-import { Weather } from "../Weather/Weather"
+import { Weather } from "../components/Weather/Weather"
 import { QueryClient, QueryClientProvider } from "react-query"
 
 import "./App.css"
-import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher"
+import ThemeSwitcher from "../components/ThemeSwitcher/ThemeSwitcher"
 
 export const App: FC = () => {
   const queryClient = new QueryClient()

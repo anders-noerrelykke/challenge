@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { themes } from "./themes"
-import { capitalize } from "../utils/utils"
+import { capitalize } from "../../utils/utils"
 
 const ThemeSwitcher = () => {
   const [currentTheme, setCurrentTheme] = useState<string>(
