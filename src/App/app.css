@@ -5,6 +5,11 @@ body {
   color: var(--text-color);
 }
 
+input,
+button {
+  padding: 0.2rem 0.5rem;
+}
+
 .controls_container {
   width: 100%;
   display: flex;

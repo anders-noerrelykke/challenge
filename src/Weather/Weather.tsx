@@ -43,11 +43,7 @@ const Weather = ({ city }: { city?: string }) => {
       return {
         ...location,
         ...weather,
-        // city: location.name,
-        // temp: weather.main.temp,
-        // state: location.state,
         icon: `https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`,
-        // country: location.country,
       }
     },
     { enabled: !!city, retry: 1 }
@@ -57,6 +53,7 @@ const Weather = ({ city }: { city?: string }) => {
     <>
       <div className="weather">
         {isLoading && <>Loading weather data...</>}
+        {error && error.message}
         <div>
           <h1 className="title">
             {info?.name} {info?.country && `(${info?.country})`}
@@ -73,8 +70,6 @@ const Weather = ({ city }: { city?: string }) => {
         <div>
           {info?.icon && <img className="icon" src={info?.icon} alt="Icon" />}
         </div>
-
-        {error && error.message}
       </div>
     </>
   )

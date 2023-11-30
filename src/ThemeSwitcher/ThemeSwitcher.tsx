@@ -1,7 +1,5 @@
-import { SyntheticEvent, useEffect, useState } from "react"
-import type { ChangeEvent } from "react"
+import { useEffect, useState } from "react"
 import { themes } from "./themes"
-import "./ThemeSwitcher.css"
 import { capitalize } from "../utils/utils"
 
 const ThemeSwitcher = () => {
@@ -22,6 +20,7 @@ const ThemeSwitcher = () => {
       value={currentTheme}
       onChange={(e) => setCurrentTheme(e.target.value)}
     >
+      <option disabled>--- Select theme ---</option>
       {Object.keys(themes).map((theme) => (
         <option key={theme} value={theme}>
           {capitalize(theme)}
