@@ -61,7 +61,7 @@ const Weather = ({ city }: { city?: string }) => {
           <h1 className="title">{info?.name}</h1>
           <label>
             {info?.state && info?.state}
-            {info?.country && <>- {info.country}</>}
+            {info?.country && <> - {info.country}</>}
           </label>
         </div>
         <div>
